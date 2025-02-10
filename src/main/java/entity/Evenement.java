@@ -22,6 +22,9 @@ public class Evenement {
     @JoinColumn(name = "organisateur_id") //    Clé étrangère
     private Organisateur organisateur;
 
+    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL)
+    private List<Ticket> tickets = new ArrayList<>();
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -85,7 +88,4 @@ public class Evenement {
     public void setOrganisateur(Organisateur organisateur) {
         this.organisateur = organisateur;
     }
-
-    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL)
-    private List<Ticket> tickets = new ArrayList<>();
 }
