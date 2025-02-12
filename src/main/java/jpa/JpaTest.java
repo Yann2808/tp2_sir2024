@@ -1,6 +1,7 @@
 package jpa;
 
 
+import dao.EntityManagerHelper;
 import entity.User;
 import entity.UtilisateurParticulier;
 import jakarta.persistence.EntityManager;
