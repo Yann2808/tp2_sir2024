@@ -4,7 +4,7 @@ import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import java.util.logging.Logger;
 
 /**
- * RESTfull microservice, based on JAX-RS and JBoss Undertow
+ * RESTful microservice, based on JAX-RS and JBoss Undertow
  *
  */
 public class RestServer {
