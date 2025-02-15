@@ -34,9 +34,10 @@ public class EvenementResource {
 
     // 3. Endpoint pour créer un événement
     @POST
+    @Path("/create")
     public Response createEvenement(EvenementDTO evenementDTO) {
-        Evenement createdEvenement = evenementService.createEvenement(evenementDTO, evenementDTO.getOrganisateur().getId());
-        return Response.ok(createdEvenement).build();
+        EvenementDTO createdEvenementDto = evenementService.createEvenement(evenementDTO);
+        return Response.ok(createdEvenementDto).build();
     }
 
     // 4. Endpoint pour récupérer un événement par son ID
@@ -57,7 +58,7 @@ public class EvenementResource {
         if (!deletedEvenement) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok().build();
+        //return Response.ok().build();
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
