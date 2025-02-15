@@ -38,6 +38,7 @@ public class RestApp extends Application {
 //        clazzes.add(AcceptHeaderOpenApiResource.class);
 
 
+        System.out.println("🚀 RestApp est bien chargée !");
         return clazzes;
     }
 

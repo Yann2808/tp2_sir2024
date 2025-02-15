@@ -12,6 +12,7 @@ import java.util.List;
 
 @Path("/events")
 @Produces("application/json")
+@Consumes("application/json")
 public class EvenementResource {
     private EvenementService evenementService;
 
@@ -21,6 +22,7 @@ public class EvenementResource {
 
     //  1. Endpoint pour récupérer tous les événements
     @GET
+    @Path("/all")
     public List<EvenementDTO> getAllEvenements() {
         return evenementService.getEvenementsByOrganisateur(null); // On récupère tout sans filtre
     }
@@ -28,7 +30,7 @@ public class EvenementResource {
     //  2. Endpoint pour récupérer les événements d'un organisateur
     @GET
     @Path("/organisateur/{organisateur_id}")
-    public List<EvenementDTO> getEvenementsByOrganisateur( @PathParam("id") Long organisateur_id) {
+    public List<EvenementDTO> getEvenementsByOrganisateur( @PathParam("organisateur_id") Long organisateur_id) {
         return evenementService.getEvenementsByOrganisateur(organisateur_id);
     }
 
