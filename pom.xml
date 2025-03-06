@@ -61,6 +61,18 @@
 		<version>6.2.4.Final</version>
 	</dependency>
 
+	<dependency>
+		<groupId>jakarta.ws.rs</groupId>
+		<artifactId>jakarta.ws.rs-api</artifactId>
+		<version>3.1.0</version>
+	</dependency>
+
+	<dependency>
+		<groupId>com.fasterxml.jackson.datatype</groupId>
+		<artifactId>jackson-datatype-jsr310</artifactId>
+		<version>2.18.2</version> <!-- Utilise la version la plus récente compatible avec ton resteasy-jackson2-provider (6.2.4.Final) -->
+	</dependency>
+
 
 	<!-- OpenAPI-->
 	<!--

@@ -9,10 +9,21 @@ public class EntityManagerHelper {
     private static final EntityManagerFactory emf; 
     private static final ThreadLocal<EntityManager> threadLocal;
 
+//    static {
+//        emf = Persistence.createEntityManagerFactory("dev");
+//        threadLocal = new ThreadLocal<EntityManager>();
+//    }
     static {
-        emf = Persistence.createEntityManagerFactory("dev");      
+        try {
+            emf = Persistence.createEntityManagerFactory("dev");
+        } catch (Throwable ex) {
+            System.err.println("Erreur lors de l'initialisation de EntityManagerFactory : " + ex.getMessage());
+            ex.printStackTrace(); // Capture et log les détails de l'erreur
+            throw new ExceptionInInitializerError(ex);
+        }
         threadLocal = new ThreadLocal<EntityManager>();
     }
+
 
     public static EntityManager getEntityManager() {
         EntityManager em = threadLocal.get();

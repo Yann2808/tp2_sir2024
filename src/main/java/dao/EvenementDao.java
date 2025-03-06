@@ -1,13 +1,29 @@
 package dao;
 
+import dto.EvenementDTO;
 import entity.Evenement;
 import entity.Organisateur;
+import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
 
-public class EvenementDao extends AbstractJpaDao<Long, Evenement> {
+public class EvenementDao extends AbstractJpaDao<Long, EvenementDTO> {
     public EvenementDao() {
-        setClazz(Evenement.class);
+        setClazz(EvenementDTO.class);
+    }
+
+    public Evenement save(Evenement evenement) {
+        EntityTransaction t = this.entityManager.getTransaction();
+        t.begin();
+        entityManager.persist(evenement);
+        t.commit();
+        return evenement; // Retourne l'entité enregistrée
+    }
+
+    public List<Evenement> findAllEvenements() {
+        return entityManager.createQuery(
+                "SELECT e FROM Evenement e", Evenement.class)
+                .getResultList();
     }
 
     public List<Evenement> findEvenementsByOrganisateurId(Long organisateur_id) {

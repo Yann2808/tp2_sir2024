@@ -25,18 +25,33 @@ public class EvenementService {
     }
 
     public EvenementDTO createEvenement(EvenementDTO evenementDTO) {
-        Organisateur organisateur = organisateurDao.findOne(evenementDTO.getOrganisateurId()); // On récupère directement l’ID depuis le DTO
+        if (evenementDTO.getOrganisateurId() == null) {
+            throw new RuntimeException("L'ID de l'organisateur est obligatoire");
+        }
+
+        Organisateur organisateur = organisateurDao.findOne(evenementDTO.getOrganisateurId());
 
         if (organisateur == null) {
             throw new RuntimeException("Organisateur non trouvé");
         }
 
         Evenement evenement = EvenementMapper.toEntity(evenementDTO);
-        evenement.setOrganisateur(organisateur); // Associe l'organisateur trouvé
+        evenement.setOrganisateur(organisateur);
 
-        evenementDao.save(evenement); // Sauvegarde l'événement
+        Evenement savedEvenement = evenementDao.save(evenement);
 
-        return EvenementMapper.toDTO(evenement); // Retourne un DTO au lieu d'une entité
+        EvenementDTO savedEvenementDTO = EvenementMapper.toDTO(savedEvenement);
+
+        return savedEvenementDTO;
+    }
+
+    public List<EvenementDTO> getAllEvenements() {
+        List<Evenement> evenements = evenementDao.findAllEvenements();
+
+        // Convertir la liste d'entités Evenement en liste de DTO
+        return evenements.stream()
+                .map(EvenementMapper::toDTO) // Convertit chaque Evenement en EvenementDTO
+                .toList(); // Retourne la liste de DTO
     }
 
 
@@ -56,14 +71,14 @@ public class EvenementService {
     }
 
     public EvenementDTO getEvenementById(Long id) {
-        Evenement evenement = evenementDao.findOne(id);
-        return (evenement != null) ? EvenementMapper.toDTO(evenement) : null;
+        EvenementDTO evenementDTO = evenementDao.findOne(id);
+        return (evenementDTO != null) ? evenementDTO : null;
     }
 
     public boolean deleteEvenement(Long id) {
-        Evenement evenement = evenementDao.findOne(id);
-        if (evenement != null) {
-            evenementDao.delete(evenement);
+        EvenementDTO evenementDTO = evenementDao.findOne(id);
+        if (evenementDTO != null) {
+            evenementDao.delete(evenementDTO);
             return true;
         }
         return false;

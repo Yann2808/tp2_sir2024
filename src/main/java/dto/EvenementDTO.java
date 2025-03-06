@@ -1,12 +1,18 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class EvenementDTO {
+public class EvenementDTO implements Serializable {
     private Long id;
     private String nom;
     private String description;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") // En exemple : 2023-11-04T11:30:00
     private LocalDateTime date;
+
     private String lieu;
     private Double prix;
     private Integer placesDisponibles;
