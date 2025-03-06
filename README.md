@@ -13,7 +13,10 @@ Nous avons également mis en place une base de données MySQL pour stocker les d
 ## 2. Fonctionnalités testées et en cours
 
 ### Fonctionnalités qui marchent :
-_Aucune fonctionnalité n'a été testée pour le moment._
+- _Création d'un évènement_
+- _Récupération de tous les évènements_
+- _Récupération d'un évènement par l'id de son organisateur_
+
 
 ### Fonctionnalités en cours de développement ou à améliorer :
 _Gestion des évènements_
@@ -37,7 +40,7 @@ _Ajout de OpenAPI pour la documentation de l'API REST._
    cd tp2_sir2024
    ```
 2. **Configurer la base de données :**
-    - Modifier le fichier `application.properties` ou `persistence.xml` pour renseigner les paramètres de connexion.
+    - Modifier le fichier `persistence.xml` pour renseigner les paramètres de connexion.
     - Lancer le script sh `run-hsqldb-server.sh` pour initialiser la base de données et lancer `show-hsqldb.sh` pour voir la base de données.
 
 3. **Démarrer l'application :**
@@ -46,7 +49,7 @@ _Ajout de OpenAPI pour la documentation de l'API REST._
    mvn jetty:run
    ```
 4. **Accéder à l'API :**
-    - API REST : `http://localhost:8111/api`
+    - API REST : `http://localhost:8111/`
     - Documentation OpenAPI : `http://localhost:8111/api-docs`
 
 ## 4. Prochaines étapes
