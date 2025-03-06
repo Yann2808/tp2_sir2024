@@ -23,7 +23,7 @@ import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import rest.EvenementResource;
 
-@ApplicationPath("/api")
+@ApplicationPath("/")
 public class RestApp extends Application {
 
 
@@ -34,6 +34,9 @@ public class RestApp extends Application {
 
         clazzes.add(OpenApiResource.class);
         clazzes.add(EvenementResource.class);
+        clazzes.add(ObjectMapperContextResolver.class);
+        System.out.println("✅ EvenementResource bien enregistrée !");
+
         //clazzes.add(PetResource.class);
 //        clazzes.add(AcceptHeaderOpenApiResource.class);
 
