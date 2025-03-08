@@ -13,21 +13,21 @@ Nous avons également mis en place une base de données MySQL pour stocker les d
 ## 2. Fonctionnalités testées et en cours
 
 ### Fonctionnalités qui marchent :
-- _Création d'un évènement_
-- _Récupération de tous les évènements_
-- _Récupération d'un évènement par l'id de son organisateur_
-- _Récupération d'un évènement par son id_
-- _Modification d'un évènement par son id_
-- _Suppression d'un évènement par son id_
+1. **Gestion des évènements :**
+   - [X] _Création d'un évènement_
+   - [X] _Récupération de tous les évènements_
+   - [X] _Récupération d'un évènement par l'id de son organisateur_
+   - [X] _Récupération d'un évènement par son id_
+   - [X] _Modification d'un évènement par son id_
+   - [X] _Suppression d'un évènement par son id_
 
 
 ### Fonctionnalités en cours de développement ou à améliorer :
-_Gestion des évènements_
-_Gesttion des tickets_
-
+-  _Gestion des évènements_
+-  _Gestion des tickets_
 ### Fonctionnalités à implémenter :
-_Gestion des tickets, des réservations et des utilisateurs._
-_Ajout de OpenAPI pour la documentation de l'API REST._
+   _Gestion des tickets, des réservations et des utilisateurs._
+   _Ajout de OpenAPI pour la documentation de l'API REST._
 
 ## 3. Instructions pour démarrer le projet
 
@@ -62,4 +62,53 @@ _Les prochaines étapes consisteront à implémenter les fonctionnalités de cr�
 - **Monôme :** Augustin Sèmèvo SALAKO
 - **Encadrant de TP :** Adrien Le Roch
 - **URL du repo Git :** https://github.com/Yann2808/tp2_sir2024.git
+
+```mermaid
+classDiagram
+    class User {
+        +id: int
+        +email: string
+        +password: string
+        +authenticateUser()
+    }
+
+    class UtilisateurParticulier {
+        +nom: string
+        +prenom: string
+        +dateNaissance: date
+        +telephone: string
+    }
+
+    class Organisateur {
+        +nomEntreprise: string
+        +siret: string
+        +verifierCredentials()
+    }
+
+    class Event {
+        +id: int
+        +nom: string
+        +date: datetime
+        +lieu: string
+        +description: string
+        +prix: float
+        +placesDisponibles: int
+        +creerEvenement()
+        +modifierEvenement()
+    }
+
+    class Ticket {
+        +id: int
+        +dateAchat: datetime
+        +statut: string
+        +qrCode: string
+        +genererQRCode()
+        +validerTicket()
+    }
+
+    User <|-- UtilisateurParticulier
+    User <|-- Organisateur
+    Organisateur "1..*" -- "0..*" Event : organise
+    Event "1" -- "0..*" Ticket : génère
+    UtilisateurParticulier "1" -- "0..*" Ticket : achète
 ```
