@@ -58,10 +58,15 @@ Nous avons également mis en place une base de données MySQL pour stocker les d
 
 ## 4. Prochaines étapes
 _Les prochaines étapes consisteront à implémenter les fonctionnalités de création et de gestion des utilisateurs, des tichets.
+Nous allons également ajouter la documentation OpenAPI pour l'API REST._
+
 ## 5. Informations sur l'équipe
 - **Monôme :** Augustin Sèmèvo SALAKO
 - **Encadrant de TP :** Adrien Le Roch
 - **URL du repo Git :** https://github.com/Yann2808/tp2_sir2024.git
+
+## 6. Diagramme de classes
+_Le diagramme de classes ci-dessous représente les entités de notre application et les relations entre elles._
 
 ```mermaid
 classDiagram
