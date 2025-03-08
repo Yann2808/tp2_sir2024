@@ -71,42 +71,42 @@ _Le diagramme de classes ci-dessous représente les entités de notre applicatio
 ```mermaid
 classDiagram
     class User {
-        +id: int
-        +email: string
-        +password: string
+        -id: int
+        -email: string
+        -password: string
         +authenticateUser()
     }
 
     class UtilisateurParticulier {
-        +nom: string
-        +prenom: string
-        +dateNaissance: date
-        +telephone: string
+        -nom: string
+        -prenom: string
+        -dateNaissance: date
+        -telephone: string
     }
 
     class Organisateur {
-        +nomEntreprise: string
-        +siret: string
+        -nomEntreprise: string
+        -siret: string
         +verifierCredentials()
     }
 
     class Event {
-        +id: int
-        +nom: string
-        +date: datetime
-        +lieu: string
-        +description: string
-        +prix: float
-        +placesDisponibles: int
+        -id: int
+        -nom: string
+        -date: datetime
+        -lieu: string
+        -description: string
+        -prix: float
+        -placesDisponibles: int
         +creerEvenement()
         +modifierEvenement()
     }
 
     class Ticket {
-        +id: int
-        +dateAchat: datetime
-        +statut: string
-        +qrCode: string
+        -id: int
+        -dateAchat: datetime
+        -statut: string
+        -qrCode: string
         +genererQRCode()
         +validerTicket()
     }
