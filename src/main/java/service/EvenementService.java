@@ -5,6 +5,7 @@ import dao.OrganisateurDao;
 import dto.EvenementDTO;
 import entity.Evenement;
 import entity.Organisateur;
+import jakarta.ws.rs.NotFoundException;
 import mapper.EvenementMapper;
 
 import java.util.List;
@@ -71,17 +72,57 @@ public class EvenementService {
     }
 
     public EvenementDTO getEvenementById(Long id) {
-        EvenementDTO evenementDTO = evenementDao.findOne(id);
-        return (evenementDTO != null) ? evenementDTO : null;
+        Evenement evenement = evenementDao.findEvenementById(id);
+        if (evenement == null) {
+            throw new RuntimeException("Événement non trouvé");
+        }
+
+        return EvenementMapper.toDTO(evenement);
+    }
+
+    public EvenementDTO updateEvenement(EvenementDTO evenementDTO) {
+        // Validation de l'ID
+        if (evenementDTO == null || evenementDTO.getId() == null) {
+            throw new IllegalArgumentException("L'ID de l'événement est requis pour la mise à jour.");
+        }
+
+        // Recherche de l'événement existant
+        Evenement evenement = evenementDao.findOne(evenementDTO.getId());
+        if (evenement == null) {
+            throw new NotFoundException("Événement avec l'ID " + evenementDTO.getId() + " non trouvé.");
+        }
+
+        // Mise à jour des champs (partielle)
+        if (evenementDTO.getNom() != null) {
+            evenement.setNom(evenementDTO.getNom());
+        }
+        if (evenementDTO.getDescription() != null) {
+            evenement.setDescription(evenementDTO.getDescription());
+        }
+        if (evenementDTO.getDate() != null) {
+            evenement.setDate(evenementDTO.getDate());
+        }
+        if (evenementDTO.getLieu() != null) {
+            evenement.setLieu(evenementDTO.getLieu());
+        }
+        if (evenementDTO.getPrix() != null) {
+            evenement.setPrix(evenementDTO.getPrix());
+        }
+        if (evenementDTO.getPlacesDisponibles() != null) {
+            evenement.setPlacesDisponibles(evenementDTO.getPlacesDisponibles());
+        }
+
+        // Persistance de la mise à jour
+        Evenement updatedEvenement = evenementDao.update(evenement); // Ici, evenement est bien un Evenement
+        return EvenementMapper.toDTO(updatedEvenement);
     }
 
     public boolean deleteEvenement(Long id) {
-        EvenementDTO evenementDTO = evenementDao.findOne(id);
-        if (evenementDTO != null) {
-            evenementDao.delete(evenementDTO);
+        Evenement evenement = evenementDao.findOne(id);
+        if (evenement != null) {
+            evenementDao.delete(evenement);
             return true;
         }
         return false;
     }
-
 }

@@ -16,10 +16,14 @@ Nous avons également mis en place une base de données MySQL pour stocker les d
 - _Création d'un évènement_
 - _Récupération de tous les évènements_
 - _Récupération d'un évènement par l'id de son organisateur_
+- _Récupération d'un évènement par son id_
+- _Modification d'un évènement par son id_
+- _Suppression d'un évènement par son id_
 
 
 ### Fonctionnalités en cours de développement ou à améliorer :
 _Gestion des évènements_
+_Gesttion des tickets_
 
 ### Fonctionnalités à implémenter :
 _Gestion des tickets, des réservations et des utilisateurs._

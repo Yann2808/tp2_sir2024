@@ -7,18 +7,19 @@ import jakarta.persistence.EntityTransaction;
 
 import java.util.List;
 
-public class EvenementDao extends AbstractJpaDao<Long, EvenementDTO> {
+public class EvenementDao extends AbstractJpaDao<Long, Evenement> {
     public EvenementDao() {
-        setClazz(EvenementDTO.class);
+        super();
+        setClazz(Evenement.class);
     }
 
-    public Evenement save(Evenement evenement) {
-        EntityTransaction t = this.entityManager.getTransaction();
-        t.begin();
-        entityManager.persist(evenement);
-        t.commit();
-        return evenement; // Retourne l'entité enregistrée
-    }
+//    public Evenement save(Evenement evenement) {
+//        EntityTransaction t = this.entityManager.getTransaction();
+//        t.begin();
+//        entityManager.persist(evenement);
+//        t.commit();
+//        return evenement; // Retourne l'entité enregistrée
+//    }
 
     public List<Evenement> findAllEvenements() {
         return entityManager.createQuery(
@@ -31,6 +32,13 @@ public class EvenementDao extends AbstractJpaDao<Long, EvenementDTO> {
                 "SELECT e FROM Evenement e WHERE e.organisateur.id = :organisateur_id", Evenement.class)
                 .setParameter("organisateur_id", organisateur_id)
                 .getResultList();
+    }
+
+    public Evenement findEvenementById(Long id) {
+        return entityManager.createQuery(
+                "SELECT e FROM Evenement e WHERE e.id = :id", Evenement.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     public List<Evenement> findEvenementByOrganisateur(Organisateur organisateur) {
