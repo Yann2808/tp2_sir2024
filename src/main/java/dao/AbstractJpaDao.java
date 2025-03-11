@@ -31,25 +31,40 @@ public abstract class AbstractJpaDao<K, T extends Serializable> implements IGene
     public T save(T entity) {
         EntityTransaction t = this.entityManager.getTransaction();
         t.begin();
-        entityManager.persist(entity);
-        t.commit();
-        return entity;
+        try {
+            entityManager.persist(entity);
+            t.commit();
+            return entity;
+        } catch (Exception e) {
+            t.rollback();
+            throw e;
+        }
     }
 
     public T update(final T entity) {
         EntityTransaction t = this.entityManager.getTransaction();
         t.begin();
-        T res = entityManager.merge(entity);
-        t.commit();
-        return res;
+        try {
+            T res = entityManager.merge(entity);
+            t.commit();
+            return res;
+        } catch (Exception e) {
+            t.rollback();
+            throw e;
+        }
 
     }
 
     public void delete(T entity) {
         EntityTransaction t = this.entityManager.getTransaction();
         t.begin();
-        entityManager.remove(entity);
-        t.commit();
+        try {
+            entityManager.remove(entity);
+            t.commit();
+        } catch (Exception e) {
+            t.rollback();
+            throw e;
+        }
 
     }
 
