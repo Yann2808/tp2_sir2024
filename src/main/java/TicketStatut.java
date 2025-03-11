@@ -1,4 +1,4 @@
-public enum TicketStatus {
+public enum TicketStatut {
     PAID,
     CANCELLED,
     USED;
