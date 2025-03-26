@@ -12,17 +12,20 @@ import java.util.List;
 
 public class EvenementService {
 
-    private EvenementDao evenementDao;
-    private OrganisateurDao organisateurDao;
+    private final EvenementDao evenementDao;
+    private final OrganisateurDao organisateurDao;
+    private final TicketService ticketService;
 
     public EvenementService() {
         this.evenementDao = new EvenementDao();
         this.organisateurDao = new OrganisateurDao();
+        this.ticketService = new TicketService();
     }
 
-    public EvenementService(EvenementDao evenementDao, OrganisateurDao organisateurDao) {
+    public EvenementService(EvenementDao evenementDao, OrganisateurDao organisateurDao, TicketService ticketService) {
         this.evenementDao = evenementDao;
         this.organisateurDao = organisateurDao;
+        this.ticketService = ticketService;
     }
 
     public EvenementDTO createEvenement(EvenementDTO evenementDTO) {
@@ -42,6 +45,9 @@ public class EvenementService {
         Evenement savedEvenement = evenementDao.save(evenement);
 
         EvenementDTO savedEvenementDTO = EvenementMapper.toDTO(savedEvenement);
+
+        // Générer les tickets
+        ticketService.generateTicketsForEvenement(savedEvenementDTO, savedEvenementDTO.getPlacesDisponibles());
 
         return savedEvenementDTO;
     }

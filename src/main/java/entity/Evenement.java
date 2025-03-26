@@ -23,6 +23,9 @@ public class Evenement implements Serializable {
     @JoinColumn(name = "organisateur_id") //    Clé étrangère
     private Organisateur organisateur;
 
+    @OneToMany(mappedBy="evenement", cascade=CascadeType.ALL, orphanRemoval = true)
+    private List<Ticket> tickets = new ArrayList<>();
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -87,6 +90,11 @@ public class Evenement implements Serializable {
         this.organisateur = organisateur;
     }
 
-    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL)
-    private List<Ticket> tickets = new ArrayList<>();
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }
