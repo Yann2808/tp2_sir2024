@@ -6,4 +6,5 @@ public class UtilisateurParticulierDao extends AbstractJpaDao<Long, UtilisateurP
     public UtilisateurParticulierDao() {
         setClazz(UtilisateurParticulier.class);
     }
+
 }

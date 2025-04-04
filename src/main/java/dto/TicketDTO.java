@@ -1,29 +1,35 @@
 package dto;
 
+import entity.TicketStatut;
+
+import java.time.LocalDateTime;
+
 public class TicketDTO {
     private Long id;
     private Long evenementId;
     private Long acheteurId;
+    private String dateCreation;
     private String dateAchat;
-    private float prix;
+    private Double prix;
     private int ticketRestant;
-    private String statut;
+    private TicketStatut statut;
     private String qrCode;
 
     public TicketDTO() {
     }
 
     public TicketDTO(
-            Long id, Long evenementId, Long acheteurId, String dateAchat,
-            float prix, int ticketRestant, String statut, String qrCode
+            Long id, Long evenementId, Long acheteurId, String dateAchat, String dateCreation,
+            Double prix, int ticketRestant, String statut, String qrCode
     ) {
         this.id = id;
         this.evenementId = evenementId;
         this.acheteurId = acheteurId;
         this.dateAchat = dateAchat;
+        this.dateCreation = dateCreation;
         this.prix = prix;
         this.ticketRestant = ticketRestant;
-        this.statut = statut;
+        this.statut = TicketStatut.valueOf(statut);
         this.qrCode = qrCode;
     }
 
@@ -51,19 +57,27 @@ public class TicketDTO {
         this.acheteurId = acheteurId;
     }
 
-    public String getDateAchat() {
-        return dateAchat;
+    public LocalDateTime getDateCreation() {
+        return LocalDateTime.parse(dateCreation);
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
+    }
+
+    public LocalDateTime getDateAchat() {
+        return LocalDateTime.parse(dateAchat);
     }
 
     public void setDateAchat(String dateAchat) {
         this.dateAchat = dateAchat;
     }
 
-    public float getPrix() {
+    public Double getPrix() {
         return prix;
     }
 
-    public void setPrix(float prix) {
+    public void setPrix(Double prix) {
         this.prix = prix;
     }
 
@@ -75,11 +89,11 @@ public class TicketDTO {
         this.ticketRestant = ticketRestant;
     }
 
-    public String getStatut() {
+    public TicketStatut getStatut() {
         return statut;
     }
 
-    public void setStatut(String statut) {
+    public void setStatut(TicketStatut statut) {
         this.statut = statut;
     }
 

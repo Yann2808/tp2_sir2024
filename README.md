@@ -21,12 +21,15 @@ Nous avons également mis en place une base de données MySQL pour stocker les d
    - [X] _Modification d'un évènement par son id_
    - [X] _Suppression d'un évènement par son id_
 
+2. **Gestion des tickets :**
+   - [X] _Création des tickets lors de la création d'un évènement_
+
 
 ### Fonctionnalités en cours de développement ou à améliorer :
 -  _Gestion des évènements_
 -  _Gestion des tickets_
 ### Fonctionnalités à implémenter :
-   _Gestion des tickets, des réservations et des utilisateurs._
+   _Gestion des réservations et des utilisateurs._
    _Ajout de OpenAPI pour la documentation de l'API REST._
 
 ## 3. Instructions pour démarrer le projet

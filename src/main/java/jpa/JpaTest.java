@@ -2,6 +2,7 @@ package jpa;
 
 
 import dao.EntityManagerHelper;
+import entity.Organisateur;
 import entity.User;
 import entity.UtilisateurParticulier;
 import jakarta.persistence.EntityManager;
