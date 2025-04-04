@@ -102,6 +102,6 @@ public class TicketService {
         evenementDao.update(evenement);
 
         //  Retourner les tickets achetés
-        return purchasedTickets.getFirst(); // ou get(0)
+        return purchasedTickets.get(0); // ou get(0)
     }
 }
