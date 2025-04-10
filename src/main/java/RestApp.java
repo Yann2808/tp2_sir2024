@@ -33,6 +33,7 @@ public class RestApp extends Application {
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
         clazzes.add(OpenApiResource.class);
+        clazzes.add(CORSFilter.class);
         clazzes.add(EvenementResource.class);
         clazzes.add(ObjectMapperContextResolver.class);
         System.out.println("✅ EvenementResource bien enregistrée !");

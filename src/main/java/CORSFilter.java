@@ -11,8 +11,10 @@ public class CORSFilter implements ContainerResponseFilter {
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) {
         MultivaluedMap<String, Object> headers = containerResponseContext.getHeaders();
 
-        headers.add("Access-Control-Allow-Origin", "*"); // Permet l'accès depuis n'importe quel domaine
-        headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT"); // Méthodes HTTP autorisées
-        headers.add("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Headers autorisés
+        headers.add("Access-Control-Allow-Origin", "http://localhost:4200");
+        headers.add("Access-Control-Allow-Headers", "origin, content-type, accept, authorization");
+        headers.add("Access-Control-Allow-Credentials", "true");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD");
+        headers.add("Access-Control-Max-Age", "1209600"); // 14 jours
     }
 }
