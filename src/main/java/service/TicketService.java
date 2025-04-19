@@ -47,6 +47,7 @@ public class TicketService {
             Ticket ticket = new Ticket();
             ticket.setEvenement(evenement);
             ticket.setDateCreation(LocalDateTime.now());
+            ticket.setDateAchat(null);
             ticket.setPrix(evenement.getPrix());
             ticket.setNbreTicket(1);
             ticket.setStatut(TicketStatut.EN_ATTENTE);
