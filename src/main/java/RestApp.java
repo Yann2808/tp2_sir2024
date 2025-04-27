@@ -19,10 +19,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import rest.EvenementResource;
 
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Mon API JAX-RS pour la gestion d'événements",
+                version = "1.0.0",
+                description = "Documentation de mon API avec OpenAPI"
+        )
+)
+
+@SecurityScheme(
+        name = "basicAuth",
+        type = SecuritySchemeType.HTTP,
+        scheme = "basic"
+)
 @ApplicationPath("/")
 public class RestApp extends Application {
 
@@ -32,13 +49,21 @@ public class RestApp extends Application {
 
         final Set<Class<?>> clazzes = new HashSet<Class<?>>();
 
+        // Ajout de ma ressource pour contacter OpenAPI
         clazzes.add(OpenApiResource.class);
+
+        // Ajout de la ressource CORSFilter pour les permissions de connexion entre API et Frontend
+        clazzes.add(CORSFilter.class);
+
+        // Pour l'authentification basique
+        clazzes.add(BasicAuthFilter.class);
+
+        // Ajout des Ressources
         clazzes.add(EvenementResource.class);
         clazzes.add(ObjectMapperContextResolver.class);
         System.out.println("✅ EvenementResource bien enregistrée !");
 
-        //clazzes.add(PetResource.class);
-//        clazzes.add(AcceptHeaderOpenApiResource.class);
+        // clazzes.add(AcceptHeaderOpenApiResource.class);
 
 
         System.out.println("🚀 RestApp est bien chargée !");
