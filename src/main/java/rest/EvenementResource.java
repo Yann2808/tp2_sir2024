@@ -4,6 +4,7 @@ import dto.EvenementDTO;
 import entity.Evenement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.Path;
@@ -16,6 +17,7 @@ import java.util.List;
 @Path("/events")
 @Produces("application/json")
 @Consumes("application/json")
+@SecurityRequirement(name = "basicAuth")
 public class EvenementResource {
     private final EvenementService evenementService;
 
