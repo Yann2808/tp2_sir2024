@@ -2,6 +2,8 @@ package rest;
 
 import entity.Organisateur;
 import entity.User;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
 import service.UserService;
 import entity.UtilisateurParticulier;
 import jakarta.ws.rs.*;
@@ -9,11 +11,24 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.time.LocalDate;
+import java.util.Base64;
+import java.util.List;
 
 @Path("/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
+
+    private final UserService userService;
+
+    public UserResource() {
+        // Constructeur par défaut requis par RESTEasy
+        this.userService = new UserService();
+    }
+
+    public UserResource(UserService userService) {
+        this.userService = userService;
+    }
 
     @POST
     @Path("/register")
@@ -58,6 +73,37 @@ public class UserResource {
         UserService.registerUser(user);
         return Response.status(Response.Status.CREATED).entity("Utilisateur créé avec succès").build();
     }
+
+    @POST
+    @Path("/login")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(@Context HttpHeaders headers) {
+        List<String> authHeader = headers.getRequestHeader(HttpHeaders.AUTHORIZATION);
+        if (authHeader == null || authHeader.isEmpty()) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Authorization header missing").build();
+        }
+
+        String encodedCredentials = authHeader.get(0).replace("Basic ", "");
+        String decoded = new String(Base64.getDecoder().decode(encodedCredentials));
+        String[] parts = decoded.split(":");
+
+        if (parts.length != 2) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("Invalid Authorization format").build();
+        }
+
+        String username = parts[0];
+        String password = parts[1];
+
+        User user = UserService.authenticate(username, password);
+        if (user == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Invalid credentials").build();
+        }
+
+        // Tu peux aussi créer un DTO ici pour ne pas renvoyer le mot de passe hashé
+        user.setPassword(null); // sécurité : ne pas exposer le mot de passe
+        return Response.ok(user).build();
+    }
+
 
     // Classe DTO pour la requête d'inscription
     public static class RegisterRequest {
