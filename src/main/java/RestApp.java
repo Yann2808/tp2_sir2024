@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import rest.EvenementResource;
+import rest.UserResource;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -54,9 +55,12 @@ public class RestApp extends Application {
 
         // Ajout de la ressource CORSFilter pour les permissions de connexion entre API et Frontend
         clazzes.add(CORSFilter.class);
+        clazzes.add(PreflightResource.class);
 
         // Pour l'authentification basique
         clazzes.add(BasicAuthFilter.class);
+        clazzes.add(UserResource.class);
+        System.out.println("✅ UserResource et BasicAuthFilter bien enregistrées !");
 
         // Ajout des Ressources
         clazzes.add(EvenementResource.class);
