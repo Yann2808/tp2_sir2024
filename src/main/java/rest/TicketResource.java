@@ -2,6 +2,7 @@ package rest;
 
 import dto.TicketDTO;
 import dto.TicketPurchaseDTO;
+import entity.Ticket;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -28,19 +29,6 @@ public class TicketResource {
 //        return ticketService.getAllTickets();
 //    }
 
-//    @POST
-//    @Path("/purchase")
-//    public Response purchaseTicket(@QueryParam("evenementId") Long evenementId,
-//                                   @QueryParam("acheteurId") Long acheteurId,
-//                                   @QueryParam("nbreTicketVoulu") int nbreTicketVoulu)
-//    {
-//        try {
-//            List<TicketDTO> tickets = (List<TicketDTO>) ticketService.purchaseTicket(evenementId, acheteurId, nbreTicketVoulu);
-//            return Response.status(Response.Status.CREATED).entity(tickets).build();
-//        } catch (Exception e) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-//        }
-//    }
 
     @POST
     @Path("/purchase")
@@ -61,5 +49,17 @@ public class TicketResource {
         }
     }
 
+    @GET
+    @Path("/user/{userId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTicketsByUserId(@PathParam("userId") Long userId) {
+        List<Ticket> tickets = ticketService.getTicketsByUserId(userId);
+
+        if (tickets == null || tickets.isEmpty()) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+        return Response.ok(tickets).build();
+    }
 
 }

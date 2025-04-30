@@ -105,4 +105,11 @@ public class TicketService {
         // Retourner la liste des tickets achetés
         return purchasedTickets;  // Changer ici pour retourner la liste
     }
+
+    // Méthode pour récupérer les tickets par utilisateur
+    public List<Ticket> getTicketsByUserId(Long userId) {
+        // Supposons que tu as une méthode pour récupérer les tickets d'un utilisateur
+        TicketDao ticketDao = new TicketDao();
+        return ticketDao.findByAcheteurId(userId); // Cette méthode appelle le DAO
+    }
 }
