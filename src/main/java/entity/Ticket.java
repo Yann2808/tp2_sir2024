@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
@@ -27,6 +28,7 @@ public class Ticket implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "evenement_id") // Clé étrangère vers Evenement
+    @JsonBackReference
     private Evenement evenement;
 
     @Nullable
