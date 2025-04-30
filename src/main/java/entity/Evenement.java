@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ public class Evenement implements Serializable {
     private Organisateur organisateur;
 
     @OneToMany(mappedBy="evenement", cascade=CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Ticket> tickets = new ArrayList<>();
 
     public void setId(Long id) {
