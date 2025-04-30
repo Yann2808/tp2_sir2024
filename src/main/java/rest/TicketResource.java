@@ -1,6 +1,7 @@
 package rest;
 
 import dto.TicketDTO;
+import dto.TicketPurchaseDTO;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -27,18 +28,38 @@ public class TicketResource {
 //        return ticketService.getAllTickets();
 //    }
 
+//    @POST
+//    @Path("/purchase")
+//    public Response purchaseTicket(@QueryParam("evenementId") Long evenementId,
+//                                   @QueryParam("acheteurId") Long acheteurId,
+//                                   @QueryParam("nbreTicketVoulu") int nbreTicketVoulu)
+//    {
+//        try {
+//            List<TicketDTO> tickets = (List<TicketDTO>) ticketService.purchaseTicket(evenementId, acheteurId, nbreTicketVoulu);
+//            return Response.status(Response.Status.CREATED).entity(tickets).build();
+//        } catch (Exception e) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+//        }
+//    }
+
     @POST
     @Path("/purchase")
-    public Response purchaseTicket(@QueryParam("evenementId") Long evenementId,
-                                   @QueryParam("acheteurId") Long acheteurId,
-                                   @QueryParam("nbreTicketVoulu") int nbreTicketVoulu)
-    {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response purchaseTicket(TicketPurchaseDTO ticketPurchaseDTO) {
         try {
-            List<TicketDTO> tickets = (List<TicketDTO>) ticketService.purchaseTicket(evenementId, acheteurId, nbreTicketVoulu);
+            // Accède aux données envoyées dans le corps de la requête
+            Long evenementId = ticketPurchaseDTO.getEvenementId();
+            Long acheteurId = ticketPurchaseDTO.getAcheteurId();
+            int nbreTicketVoulu = ticketPurchaseDTO.getNbreTicketVoulu();
+
+            // Appel à la logique du service
+            List<TicketDTO> tickets = ticketService.purchaseTicket(evenementId, acheteurId, nbreTicketVoulu);
+
             return Response.status(Response.Status.CREATED).entity(tickets).build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
+
 
 }

@@ -61,7 +61,7 @@ public class TicketService {
         return "123-456-789";
     }
 
-    public TicketDTO purchaseTicket(Long evenementId, Long acheteurId, int nbreTicket) {
+    public List<TicketDTO> purchaseTicket(Long evenementId, Long acheteurId, int nbreTicket) {
         if (evenementId == null || acheteurId == null || nbreTicket <= 0) {
             throw new IllegalArgumentException("Les paramètres pour la création de votre ticket sont nuls.");
         }
@@ -76,7 +76,7 @@ public class TicketService {
             throw new IllegalArgumentException("Acheteur non trouvé");
         }
 
-        //  Vérifier la disponibilité
+        // Vérifier la disponibilité
         List<Ticket> availableTickets = ticketDao.findAvailableTicketsForEvenement(evenementId).stream()
                 .filter(ticket -> ticket.getStatut() == TicketStatut.EN_ATTENTE)
                 .limit(nbreTicket)
@@ -97,12 +97,12 @@ public class TicketService {
             purchasedTickets.add(TicketMapper.toDTO(ticket));
         }
 
-        //  Mettre à jour les places disponibles
+        // Mettre à jour les places disponibles
         int placesRestantes = evenement.getPlacesDisponibles() - nbreTicket;
         evenement.setPlacesDisponibles(placesRestantes);
         evenementDao.update(evenement);
 
-        //  Retourner les tickets achetés
-        return purchasedTickets.get(0); // ou get(0)
+        // Retourner la liste des tickets achetés
+        return purchasedTickets;  // Changer ici pour retourner la liste
     }
 }

@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -20,6 +21,7 @@ public class UtilisateurParticulier extends User {
     private LocalDate dateNaissance;
 
     @OneToMany(mappedBy = "acheteur")
+    @JsonIgnore
     private List<Ticket> tickets = new ArrayList<>();
 
     // Constructeurs

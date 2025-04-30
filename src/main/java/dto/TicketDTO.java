@@ -1,5 +1,6 @@
 package dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import entity.TicketStatut;
 
 import java.time.LocalDateTime;
@@ -8,8 +9,13 @@ public class TicketDTO {
     private Long id;
     private Long evenementId;
     private Long acheteurId;
-    private String dateCreation;
-    private String dateAchat;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateCreation;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateAchat;
+
     private Double prix;
     private int ticketRestant;
     private TicketStatut statut;
@@ -19,7 +25,7 @@ public class TicketDTO {
     }
 
     public TicketDTO(
-            Long id, Long evenementId, Long acheteurId, String dateAchat, String dateCreation,
+            Long id, Long evenementId, Long acheteurId, LocalDateTime dateAchat, LocalDateTime dateCreation,
             Double prix, int ticketRestant, String statut, String qrCode
     ) {
         this.id = id;
@@ -58,18 +64,18 @@ public class TicketDTO {
     }
 
     public LocalDateTime getDateCreation() {
-        return LocalDateTime.parse(dateCreation);
+        return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(LocalDateTime dateCreation) {
         this.dateCreation = dateCreation;
     }
 
     public LocalDateTime getDateAchat() {
-        return LocalDateTime.parse(dateAchat);
+        return dateAchat;
     }
 
-    public void setDateAchat(String dateAchat) {
+    public void setDateAchat(LocalDateTime dateAchat) {
         this.dateAchat = dateAchat;
     }
 
