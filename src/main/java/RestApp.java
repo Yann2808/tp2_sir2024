@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 import rest.EvenementResource;
+import rest.TicketResource;
 import rest.UserResource;
 
 @OpenAPIDefinition(
@@ -64,8 +65,10 @@ public class RestApp extends Application {
 
         // Ajout des Ressources
         clazzes.add(EvenementResource.class);
+        clazzes.add(TicketResource.class);
         clazzes.add(ObjectMapperContextResolver.class);
         System.out.println("✅ EvenementResource bien enregistrée !");
+        System.out.println("✅ TicketResource bien enregistrée !");
 
         // clazzes.add(AcceptHeaderOpenApiResource.class);
 
